@@ -41,7 +41,7 @@ and open the template in the editor.
             </form>  
           </div>
 
-          <div class="span7">
+          <div class="span7" class="output">
             <pre id="output"></pre>
           </div>
       </div>
@@ -53,7 +53,9 @@ and open the template in the editor.
     <script>
       output = '';
       $(document).ready(function () {
+        $('pre#output').hide();
         $("input#addCase").click(function() {
+          $('pre#output').show();
           output += '- ' + $('select#caseType').val() + ':\n';
           output += '&nbsp;&nbsp;&nbsp;&nbsp;setup: ' + $('textarea#setup').val() + '\n';
           output += '&nbsp;&nbsp;&nbsp;&nbsp;action: ' + $('textarea#action').val() + '\n';
@@ -68,6 +70,7 @@ and open the template in the editor.
           $('#testCase')[0].reset();
           $('pre#output').html('');
           output = '';
+          $('pre#output').hide();
         })
       });
 
