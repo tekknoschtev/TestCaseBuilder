@@ -19,21 +19,20 @@ and open the template in the editor.
          <div class="span4">
             <form name="testCase" id="testCase" action="#">  
                 <label for="caseType" id="case_type_label">Test Case Type:</label>
-                <select id="caseType">
+                <select name="caseType" id="caseType">
                   <option value="testStep">Test Case</option>
                   <option value="regressionStep">Regression Test</option>
                 </select>
 
                 <br />
                 <label id="setup_label">Setup:</label>  
-                <textarea id="setup" rows="4" class="field span4"></textarea>
+                <textarea name="setup" id="setup" rows="4" class="field span4"></textarea>
 
                 <label id="action_label">Action:</label>  
-                <textarea id="action" rows="4" class="field span4"></textarea>
-                <!--<input type="text" name="action" id="action" size="30" value="" class="text-input" />-->  
+                <textarea name="action" id="action" rows="4" class="field span4"></textarea>
 
                 <label id="outcome_label">Expected Outcome:</label>  
-                <textarea id="outcome" rows="4" class="field span4"></textarea>
+                <textarea name="outcome" id="outcome" rows="4" class="field span4"></textarea>
 
                 <br />  
                 <input type="submit" name="submit" class="btn" id="addCase" value="Add Test Case" />  
@@ -41,8 +40,8 @@ and open the template in the editor.
             </form>  
           </div>
 
-          <div class="span7" class="output">
-            <pre id="output"></pre>
+          <div class="span7" id="output">
+            
           </div>
       </div>
     </div>
@@ -54,7 +53,8 @@ and open the template in the editor.
       output = '';
       $(document).ready(function () {
         $('pre#output').hide();
-        $("input#addCase").click(function() {
+        $('form').submit(function () {
+          console.log(JSON.stringify($(this).serializeArray()));
           $('pre#output').show();
           output += '- ' + $('select#caseType').val() + ':\n';
           output += '&nbsp;&nbsp;&nbsp;&nbsp;setup: ' + $('textarea#setup').val() + '\n';
@@ -62,7 +62,7 @@ and open the template in the editor.
           output += '&nbsp;&nbsp;&nbsp;&nbsp;expectedOutcome: ' + $('textarea#outcome').val() + '\n\n';
           
           $('#testCase')[0].reset();
-          $('pre#output').html(output);
+          $('#output').html('<div class="case"><pre>' + output + '</pre></div>');
           return false;
         });
         
@@ -71,7 +71,7 @@ and open the template in the editor.
           $('pre#output').html('');
           output = '';
           $('pre#output').hide();
-        })
+        });
       });
 
     </script>
