@@ -1,0 +1,76 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <style>
+      html, body {margin:0; padding:0;}
+      .container {padding-top: 20px;}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+         <div class="span4">
+            <form name="testCase" id="testCase" action="#">  
+                <label for="caseType" id="case_type_label">Test Case Type:</label>
+                <select id="caseType">
+                  <option value="testStep">Test Case</option>
+                  <option value="regressionStep">Regression Test</option>
+                </select>
+
+                <br />
+                <label id="setup_label">Setup:</label>  
+                <textarea id="setup" rows="4" class="field span4"></textarea>
+
+                <label id="action_label">Action:</label>  
+                <textarea id="action" rows="4" class="field span4"></textarea>
+                <!--<input type="text" name="action" id="action" size="30" value="" class="text-input" />-->  
+
+                <label id="outcome_label">Expected Outcome:</label>  
+                <textarea id="outcome" rows="4" class="field span4"></textarea>
+
+                <br />  
+                <input type="submit" name="submit" class="button" id="addCase" value="Add Test Case" />  
+                <input type="submit" name="submit" class="button" id="clearAll" value="Reset" />  
+            </form>  
+          </div>
+
+          <div class="span7">
+            <pre id="output"></pre>
+          </div>
+      </div>
+    </div>
+      
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script>
+      output = '';
+      $(document).ready(function () {
+        $("input#addCase").click(function() {
+          output += '- ' + $('select#caseType').val() + ':\n';
+          output += '&nbsp;&nbsp;&nbsp;&nbsp;setup: ' + $('textarea#setup').val() + '\n';
+          output += '&nbsp;&nbsp;&nbsp;&nbsp;action: ' + $('textarea#action').val() + '\n';
+          output += '&nbsp;&nbsp;&nbsp;&nbsp;expectedOutcome: ' + $('textarea#outcome').val() + '\n\n';
+          
+          $('#testCase')[0].reset();
+          $('pre#output').html(output);
+          return false;
+        });
+        
+        $("input#clearAll").click(function() {
+          $('#testCase')[0].reset();
+          $('pre#output').html('');
+          output = '';
+        })
+      });
+
+    </script>
+  </body>  
+</html>
